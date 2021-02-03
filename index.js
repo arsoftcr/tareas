@@ -26,15 +26,15 @@ app.get('/', (request, response) => {
 //Definicion de endpoints
 app.get('/tareas/list', db.getListaTareas)
 
-//app.get('/proyectos/list', db.getProyectos)
+app.get('/proyectos/list', db.getProyectos)
 
-//app.get('/tareas/crear', db.getProvincias)
+app.get('/tareas/crear', db.tarea)
 
-//app.get('proyectos/crear', db.getCantones)
+app.get('proyectos/crear', db.proyecto)
 
-//app.get('registro/horas', db.getDistritos)
+app.get('registro/horas', db.horas)
 
-//app.get('historico', db.getBarrios)
+app.get('/historico', db.historico)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Escuchar en el puerto ....

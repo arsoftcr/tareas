@@ -28,25 +28,84 @@ const getListaTareas = (request, response) => {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+const getProyectos = (request, response) => {
+  pool.query('SELECT nombre, estimadas, dedicadas FROM proyecto;', (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+const historico = (request, response) => {
+  pool.query('SELECT tarea, proyecto, fecha, horas FROM public.tarea_proyecto;', (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
 
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+const tarea = (request, response) => {
+  pool.query(`INSERT INTO public.tarea(id, titulo, detalle)
+   VALUES (uuid_generate_v4(), $1, $2);`,[request.params.titulo,request.params.detalle], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+const proyecto = (request, response) => {
+  pool.query(`INSERT INTO public.proyecto(
+    nombre, estimadas, dedicadas)
+    VALUES (upper($1), 0, 0);`,[request.params.nombre], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+const horas = (request, response) => {
+  pool.query(`INSERT INTO tarea_proyecto(
+    tarea, proyecto, fecha, horas)
+    VALUES ($1, $2, $3, $4);`,
+    [request.params.tarea,request.params.proyecto,request.params.fecha,request.params.horas]
+    , (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
-
 //Exportar los metodos getItems,createItem,modifyItem,deleteItem para utilizarlos en el index.js
 module.exports = {
   getListaTareas,
+  getProyectos,
+  historico,
+  tarea,
+  proyecto,
+  horas
 }
