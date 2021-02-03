@@ -54,7 +54,7 @@ const historico = (request, response) => {
 
 const tarea = (request, response) => {
   pool.query(`INSERT INTO public.tarea(id, titulo, detalle)
-   VALUES (uuid_generate_v4(), $1, $2);`,[request.params.titulo,request.params.detalle], (error, results) => {
+   VALUES (uuid_generate_v4(), $1, $2);`,[request.body.titulo,request.body.detalle], (error, results) => {
     if (error) {
       throw error
     }
@@ -70,7 +70,7 @@ const tarea = (request, response) => {
 const proyecto = (request, response) => {
   pool.query(`INSERT INTO public.proyecto(
     nombre, estimadas, dedicadas)
-    VALUES (upper($1), 0, 0);`,[request.params.nombre], (error, results) => {
+    VALUES (upper($1), 0, 0);`,[request.body.nombre], (error, results) => {
     if (error) {
       throw error
     }
@@ -87,7 +87,7 @@ const horas = (request, response) => {
   pool.query(`INSERT INTO tarea_proyecto(
     tarea, proyecto, fecha, horas)
     VALUES ($1, $2, $3, $4);`,
-    [request.params.tarea,request.params.proyecto,request.params.fecha,request.params.horas]
+    [request.body.tarea,request.body.proyecto,request.body.fecha,request.body.horas]
     , (error, results) => {
     if (error) {
       throw error
