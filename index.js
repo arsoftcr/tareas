@@ -28,11 +28,11 @@ app.get('/tareas/list', db.getListaTareas)
 
 app.get('/proyectos/list', db.getProyectos)
 
-app.get('/tareas/crear', db.tarea)
+app.post('/tareas/crear', db.tarea)
 
-app.get('proyectos/crear', db.proyecto)
+app.post('proyectos/crear', db.proyecto)
 
-app.get('registro/horas', db.horas)
+app.post('registro/horas', db.horas)
 
 app.get('/historico', db.historico)
 
