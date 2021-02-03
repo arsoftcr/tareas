@@ -25,7 +25,7 @@ const getListaTareas = (request, response) => {
       response.status(200).json(results.rows)
     })
   } catch (error) {
-    response.status(500).json(error)
+    res.send({ "error": error })
   }
  
 }
@@ -42,7 +42,7 @@ const getProyectos = (request, response) => {
       response.status(200).json(results.rows)
     })
   } catch (error) {
-    response.status(500).json(error)
+    res.send({ "error": error })
   }
  
 }
@@ -58,7 +58,7 @@ const historico = (request, response) => {
       response.status(200).json(results.rows)
     })
   } catch (error) {
-    response.status(500).json(error)
+    res.send({ "error": error })
   }
  
 }
@@ -77,7 +77,7 @@ const tarea = (request, response) => {
      response.status(201).json('realizado')
    })
   } catch (error) {
-    response.status(500).json(error)
+    res.send({ "error": error })
   }
  
 }
@@ -98,7 +98,7 @@ const proyecto = (request, response) => {
       response.status(201).json('realizado')
     })
   } catch (error) {
-    response.status(500).json(error)
+    res.send({ "error": error })
   }
  
 }
@@ -119,7 +119,7 @@ const horas = (request, response) => {
     response.status(201).json('realizado')
   })
   } catch (error) {
-    response.status(500).json(error)
+    res.send({ "error": error })
   }
 
 }
