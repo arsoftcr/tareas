@@ -4,37 +4,31 @@
 //Definiciones para configurar la conexión a la base de datos
 const Pool = require('pg').Pool
 const pool = new Pool({
-  user: 'pdlezhayipuvic',
-  host: 'ec2-3-215-118-246.compute-1.amazonaws.com',
-  database: 'ddhf8npg10k0ik',
-  password: 'd723f0b81f7208c113fa8c848335f8820ea798896f8228895c977ef575d96899',
+  user: 'omkswcwktyaswf',
+  host: 'ec2-35-175-155-248.compute-1.amazonaws.com',
+  database: 'dej5umnr9j4v16',
+  password: '7e2a31b6d1085c365b5725fc2b3d7ee0f8ac86266873b5e1ed94831a2c75a637',
   port: 5432,
+  connectionTimeoutMillis : 30000,
+  idleTimeoutMillis : 30000,
 })
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Metodo para obtener todos los items o tareas
 const getListaTareas = (request, response) => {
-
-  pool.query('SELECT * FROM "TAREA"', (error, results) => {
+  pool.query('SELECT id, titulo, detalle FROM tarea;', (error, results) => {
     if (error) {
-      process.stdout.write(error);
+      throw error
     }
     response.status(200).json(results.rows)
   })
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-const getProyectos = (request, response) => {
 
-  pool.query('SELECT * FROM "PROYECTO" ', (error, results) => {
-    if (error) {
-      process.stdout.write(error);
-    }
-    response.status(200).json(results.rows)
-  })
-}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -55,5 +49,4 @@ const getProyectos = (request, response) => {
 //Exportar los metodos getItems,createItem,modifyItem,deleteItem para utilizarlos en el index.js
 module.exports = {
   getListaTareas,
-  getProyectos,
 }
