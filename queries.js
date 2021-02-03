@@ -16,7 +16,7 @@ const pool = new Pool({
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Metodo para obtener todos los items o tareas
-const getListaTareas = (err, request, response) => {
+const getListaTareas = (request, response) => {
 
   pool.query('SELECT id, titulo, detalle FROM tarea;', (error, results) => {
     if (error) {
@@ -25,9 +25,6 @@ const getListaTareas = (err, request, response) => {
     response.status(200).json(results.rows)
   })
 
-  if (err) {
-    process.stdout.write(err)
-  }
 }
 
 
@@ -42,9 +39,7 @@ const getProyectos = (request, response) => {
     response.status(200).json(results.rows)
   })
 
-  if (err) {
-    process.stdout.write(err)
-  }
+  
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -57,9 +52,7 @@ const historico = (request, response) => {
     }
     response.status(200).json(results.rows)
   })
-  if (err) {
-    process.stdout.write(err)
-  }
+ 
 
 }
 
@@ -76,9 +69,7 @@ const tarea = (request, response) => {
     }
     response.status(201).json('realizado')
   })
-  if (err) {
-    process.stdout.write(err)
-  }
+ 
 
 }
 
@@ -98,9 +89,7 @@ const proyecto = (request, response) => {
       response.status(201).json('realizado')
     })
 
-  if (err) {
-    process.stdout.write(err)
-  }
+  
 }
 
 
@@ -118,9 +107,7 @@ const horas = (request, response) => {
       }
       response.status(201).json('realizado')
     })
-  if (err) {
-    process.stdout.write(err)
-  }
+  
 
 }
 
