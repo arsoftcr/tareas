@@ -18,7 +18,7 @@ const getListaTareas = (request, response) => {
 
   pool.query('SELECT * FROM "TAREA"', (error, results) => {
     if (error) {
-      response.status(500).json(error)
+      process.stdout.write(error);
     }
     response.status(200).json(results.rows)
   })
@@ -30,7 +30,7 @@ const getProyectos = (request, response) => {
 
   pool.query('SELECT * FROM "PROYECTO" ', (error, results) => {
     if (error) {
-      response.status(500).json(error)
+      process.stdout.write(error);
     }
     response.status(200).json(results.rows)
   })
