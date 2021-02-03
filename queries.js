@@ -19,7 +19,7 @@ const pool = new Pool({
 const getListaTareas = (request, response) => {
   pool.query('SELECT id, titulo, detalle FROM tarea;', (error, results) => {
     if (error) {
-      throw error
+      response.status(500).json(error)
     }
     response.status(200).json(results.rows)
   })
@@ -42,7 +42,7 @@ const getProyectos = (request, response) => {
 const historico = (request, response) => {
   pool.query('SELECT tarea, proyecto, fecha, horas FROM public.tarea_proyecto;', (error, results) => {
     if (error) {
-      throw error
+      response.status(500).json(error)
     }
     response.status(200).json(results.rows)
   })
@@ -56,7 +56,7 @@ const tarea = (request, response) => {
   pool.query(`INSERT INTO public.tarea(id, titulo, detalle)
    VALUES (uuid_generate_v4(), $1, $2);`,[request.body.titulo,request.body.detalle], (error, results) => {
     if (error) {
-      throw error
+      response.status(500).json(error)
     }
     response.status(201).json('realizado')
   })
@@ -72,7 +72,7 @@ const proyecto = (request, response) => {
     `INSERT INTO public.proyecto(nombre, estimadas, dedicadas) VALUES (upper($1), 0, 0);`,
     [request.body.nombre], (error, results) => {
     if (error) {
-      throw error
+      response.status(500).json(error)
     }
     response.status(201).json('realizado')
   })
@@ -88,7 +88,7 @@ const horas = (request, response) => {
     [request.body.tarea,request.body.proyecto,request.body.fecha,request.body.horas]
     , (error, results) => {
     if (error) {
-      throw error
+      response.status(500).json(error)
     }
     response.status(201).json('realizado')
   })
