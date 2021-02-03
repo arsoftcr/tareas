@@ -17,35 +17,50 @@ const pool = new Pool({
 
 //Metodo para obtener todos los items o tareas
 const getListaTareas = (request, response) => {
-  pool.query('SELECT id, titulo, detalle FROM tarea;', (error, results) => {
-    if (error) {
-      response.status(500).json(error)
-    }
-    response.status(200).json(results.rows)
-  })
+  try {
+    pool.query('SELECT id, titulo, detalle FROM tarea;', (error, results) => {
+      if (error) {
+        response.status(500).json(error)
+      }
+      response.status(200).json(results.rows)
+    })
+  } catch (error) {
+    response.status(500).json(error)
+  }
+ 
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 const getProyectos = (request, response) => {
-  pool.query('SELECT nombre, estimadas, dedicadas FROM proyecto;', (error, results) => {
-    if (error) {
-      throw error
-    }
-    response.status(200).json(results.rows)
-  })
+  try {
+    pool.query('SELECT nombre, estimadas, dedicadas FROM proyecto;', (error, results) => {
+      if (error) {
+        response.status(500).json(error)
+      }
+      response.status(200).json(results.rows)
+    })
+  } catch (error) {
+    response.status(500).json(error)
+  }
+ 
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 const historico = (request, response) => {
-  pool.query('SELECT tarea, proyecto, fecha, horas FROM public.tarea_proyecto;', (error, results) => {
-    if (error) {
-      response.status(500).json(error)
-    }
-    response.status(200).json(results.rows)
-  })
+  try {
+    pool.query('SELECT tarea, proyecto, fecha, horas FROM public.tarea_proyecto;', (error, results) => {
+      if (error) {
+        response.status(500).json(error)
+      }
+      response.status(200).json(results.rows)
+    })
+  } catch (error) {
+    response.status(500).json(error)
+  }
+ 
 }
 
 
@@ -53,13 +68,18 @@ const historico = (request, response) => {
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 const tarea = (request, response) => {
-  pool.query(`INSERT INTO public.tarea(id, titulo, detalle)
-   VALUES (uuid_generate_v4(), $1, $2);`,[request.body.titulo,request.body.detalle], (error, results) => {
-    if (error) {
-      response.status(500).json(error)
-    }
-    response.status(201).json('realizado')
-  })
+  try {
+    pool.query(`INSERT INTO public.tarea(id, titulo, detalle)
+    VALUES (uuid_generate_v4(), $1, $2);`,[request.body.titulo,request.body.detalle], (error, results) => {
+     if (error) {
+       response.status(500).json(error)
+     }
+     response.status(201).json('realizado')
+   })
+  } catch (error) {
+    response.status(500).json(error)
+  }
+ 
 }
 
 
@@ -68,14 +88,19 @@ const tarea = (request, response) => {
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 const proyecto = (request, response) => {
-  pool.query(
-    `INSERT INTO public.proyecto(nombre, estimadas, dedicadas) VALUES (upper($1), 0, 0);`,
-    [request.body.nombre], (error, results) => {
-    if (error) {
-      response.status(500).json(error)
-    }
-    response.status(201).json('realizado')
-  })
+  try {
+    pool.query(
+      `INSERT INTO public.proyecto(nombre, estimadas, dedicadas) VALUES (upper($1), 0, 0);`,
+      [request.body.nombre], (error, results) => {
+      if (error) {
+        response.status(500).json(error)
+      }
+      response.status(201).json('realizado')
+    })
+  } catch (error) {
+    response.status(500).json(error)
+  }
+ 
 }
 
 
@@ -84,7 +109,8 @@ const proyecto = (request, response) => {
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 const horas = (request, response) => {
-  pool.query(`INSERT INTO tarea_proyecto(tarea, proyecto, fecha, horas) VALUES ($1, $2, $3, $4);`,
+  try {
+    pool.query(`INSERT INTO tarea_proyecto(tarea, proyecto, fecha, horas) VALUES ($1, $2, $3, $4);`,
     [request.body.tarea,request.body.proyecto,request.body.fecha,request.body.horas]
     , (error, results) => {
     if (error) {
@@ -92,6 +118,10 @@ const horas = (request, response) => {
     }
     response.status(201).json('realizado')
   })
+  } catch (error) {
+    response.status(500).json(error)
+  }
+
 }
 
 
