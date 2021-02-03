@@ -32,9 +32,9 @@ app.get('/historico', db.historico)
 
 app.post('/tareas/crear', db.tarea)
 
-app.post('proyectos/crear', db.proyecto)
+app.post('/proyectos/crear', db.proyecto)
 
-app.post('registro/horas', db.horas)
+app.post('/registro/horas', db.horas)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Escuchar en el puerto ....
 app.listen(port, () => {
