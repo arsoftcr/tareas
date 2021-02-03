@@ -3,7 +3,7 @@ const express = require('express')//Declaracion de framework de express para nod
 const bodyParser = require('body-parser')//Declaracion de body parser en funcion de los payloads 
 const app = express()
 const db = require('./queries')//Utilizar metodos de queries.js
-const port = process.env.PORT || 3001;//Declaracion de Puerto para produccion
+const port = process.env.PORT || 3000;//Declaracion de Puerto para produccion
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
