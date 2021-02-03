@@ -68,9 +68,9 @@ const tarea = (request, response) => {
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 const proyecto = (request, response) => {
-  pool.query(`INSERT INTO public.proyecto(
-    nombre, estimadas, dedicadas)
-    VALUES (upper($1), 0, 0);`,[request.body.nombre], (error, results) => {
+  pool.query(
+    `INSERT INTO public.proyecto(nombre, estimadas, dedicadas) VALUES (upper($1), 0, 0);`,
+    [request.body.nombre], (error, results) => {
     if (error) {
       throw error
     }
@@ -84,9 +84,7 @@ const proyecto = (request, response) => {
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 const horas = (request, response) => {
-  pool.query(`INSERT INTO tarea_proyecto(
-    tarea, proyecto, fecha, horas)
-    VALUES ($1, $2, $3, $4);`,
+  pool.query(`INSERT INTO tarea_proyecto(tarea, proyecto, fecha, horas) VALUES ($1, $2, $3, $4);`,
     [request.body.tarea,request.body.proyecto,request.body.fecha,request.body.horas]
     , (error, results) => {
     if (error) {
@@ -107,5 +105,5 @@ module.exports = {
   historico,
   tarea,
   proyecto,
-  horas
+  horas,
 }
