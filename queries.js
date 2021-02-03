@@ -9,58 +9,58 @@ const pool = new Pool({
   database: 'dej5umnr9j4v16',
   password: '7e2a31b6d1085c365b5725fc2b3d7ee0f8ac86266873b5e1ed94831a2c75a637',
   port: 5432,
-  connectionTimeoutMillis : 30000,
-  idleTimeoutMillis : 30000,
+  connectionTimeoutMillis: 30000,
+  idleTimeoutMillis: 30000,
 })
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Metodo para obtener todos los items o tareas
-const getListaTareas = (request, response) => {
-  try {
-    pool.query('SELECT id, titulo, detalle FROM tarea;', (error, results) => {
-      if (error) {
-        response.status(500).json(error)
-      }
-      response.status(200).json(results.rows)
-    })
-  } catch (error) {
-    res.send({ "error": error })
+const getListaTareas = (err, request, response) => {
+
+  pool.query('SELECT id, titulo, detalle FROM tarea;', (error, results) => {
+    if (error) {
+      response.status(500).json(error)
+    }
+    response.status(200).json(results.rows)
+  })
+
+  if (err) {
+    process.stdout.write(err)
   }
- 
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 const getProyectos = (request, response) => {
-  try {
-    pool.query('SELECT nombre, estimadas, dedicadas FROM proyecto;', (error, results) => {
-      if (error) {
-        response.status(500).json(error)
-      }
-      response.status(200).json(results.rows)
-    })
-  } catch (error) {
-    res.send({ "error": error })
+
+  pool.query('SELECT nombre, estimadas, dedicadas FROM proyecto;', (error, results) => {
+    if (error) {
+      response.status(500).json(error)
+    }
+    response.status(200).json(results.rows)
+  })
+
+  if (err) {
+    process.stdout.write(err)
   }
- 
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 const historico = (request, response) => {
-  try {
-    pool.query('SELECT tarea, proyecto, fecha, horas FROM public.tarea_proyecto;', (error, results) => {
-      if (error) {
-        response.status(500).json(error)
-      }
-      response.status(200).json(results.rows)
-    })
-  } catch (error) {
-    res.send({ "error": error })
+
+  pool.query('SELECT tarea, proyecto, fecha, horas FROM public.tarea_proyecto;', (error, results) => {
+    if (error) {
+      response.status(500).json(error)
+    }
+    response.status(200).json(results.rows)
+  })
+  if (err) {
+    process.stdout.write(err)
   }
- 
+
 }
 
 
@@ -68,18 +68,18 @@ const historico = (request, response) => {
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 const tarea = (request, response) => {
-  try {
-    pool.query(`INSERT INTO public.tarea(id, titulo, detalle)
-    VALUES (uuid_generate_v4(), $1, $2);`,[request.body.titulo,request.body.detalle], (error, results) => {
-     if (error) {
-       response.status(500).json(error)
-     }
-     response.status(201).json('realizado')
-   })
-  } catch (error) {
-    res.send({ "error": error })
+
+  pool.query(`INSERT INTO public.tarea(id, titulo, detalle)
+    VALUES (uuid_generate_v4(), $1, $2);`, [request.body.titulo, request.body.detalle], (error, results) => {
+    if (error) {
+      response.status(500).json(error)
+    }
+    response.status(201).json('realizado')
+  })
+  if (err) {
+    process.stdout.write(err)
   }
- 
+
 }
 
 
@@ -88,19 +88,19 @@ const tarea = (request, response) => {
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 const proyecto = (request, response) => {
-  try {
-    pool.query(
-      `INSERT INTO public.proyecto(nombre, estimadas, dedicadas) VALUES (upper($1), 0, 0);`,
-      [request.body.nombre], (error, results) => {
+
+  pool.query(
+    `INSERT INTO public.proyecto(nombre, estimadas, dedicadas) VALUES (upper($1), 0, 0);`,
+    [request.body.nombre], (error, results) => {
       if (error) {
         response.status(500).json(error)
       }
       response.status(201).json('realizado')
     })
-  } catch (error) {
-    res.send({ "error": error })
+
+  if (err) {
+    process.stdout.write(err)
   }
- 
 }
 
 
@@ -109,17 +109,17 @@ const proyecto = (request, response) => {
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 const horas = (request, response) => {
-  try {
-    pool.query(`INSERT INTO tarea_proyecto(tarea, proyecto, fecha, horas) VALUES ($1, $2, $3, $4);`,
-    [request.body.tarea,request.body.proyecto,request.body.fecha,request.body.horas]
+
+  pool.query(`INSERT INTO tarea_proyecto(tarea, proyecto, fecha, horas) VALUES ($1, $2, $3, $4);`,
+    [request.body.tarea, request.body.proyecto, request.body.fecha, request.body.horas]
     , (error, results) => {
-    if (error) {
-      response.status(500).json(error)
-    }
-    response.status(201).json('realizado')
-  })
-  } catch (error) {
-    res.send({ "error": error })
+      if (error) {
+        response.status(500).json(error)
+      }
+      response.status(201).json('realizado')
+    })
+  if (err) {
+    process.stdout.write(err)
   }
 
 }
