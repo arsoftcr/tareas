@@ -28,14 +28,13 @@ app.get('/tareas/list', db.getListaTareas)
 
 app.get('/proyectos/list', db.getProyectos)
 
+app.get('/historico', db.historico)
+
 app.post('/tareas/crear', db.tarea)
 
 app.post('proyectos/crear', db.proyecto)
 
 app.post('registro/horas', db.horas)
-
-app.get('/historico', db.historico)
-
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Escuchar en el puerto ....
 app.listen(port, () => {

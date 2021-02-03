@@ -58,7 +58,7 @@ const tarea = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(200).json('realizado')
+    response.status(201).json('realizado')
   })
 }
 
@@ -74,7 +74,7 @@ const proyecto = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(200).json('realizado')
+    response.status(201).json('realizado')
   })
 }
 
@@ -90,7 +90,7 @@ const horas = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(200).json('realizado')
+    response.status(201).json('realizado')
   })
 }
 
